@@ -19,17 +19,17 @@ Design
 > if a file has been created, modified, or removed.
 >
 >   1. What system calls would you need to use?
->
+>	To do this action, you'd need to use the following system calls: opendir(), readdir(), closedir(), and stat().
 >   2. What information would you need to store and what data structures would
 >      you need?
-
+>	You would need to store what files are in the directory on the previous scan and the date tag of the files on the previous scan. To keep track of this, you can use a linked list of structs to compare the values of the current scan to the values of the previous scan. 
 .
 
 > Explain how you would check if a rule matched an event and execute the
 > corresponding action.
 >
 >   1. What system calls would you need to use?
->
+>	You need to use the following system calls: system().
 >   2. How would you pass the environment variables to the command?
 
 .
