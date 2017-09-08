@@ -1,6 +1,7 @@
 #ifndef SCANNER
 #define SCANNER
 
+#include <string.h>
 #include <errno.h>
 #include <dirent.h>
 #include <stdlib.h>
@@ -9,14 +10,17 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <fileStruct.h>
+#include "file_scan.h"
 #include <string>
+#include <vector>
+
+using namespace std;
 
 void scan(string root, vector<file_scan> fileVector) {
     DIR *dir;
     struct dirent *dp;
     struct stat buf;
-    if (lstat(root.c_str(), buf) < 0) {
+    if (lstat(root.c_str(), &buf) < 0) {
         printf("Couldn't scan %s: %s\n", root.c_str(), strerror(errno));
         return;
     }
@@ -40,7 +44,7 @@ void scan(string root, vector<file_scan> fileVector) {
         file_scan foundFile;
         foundFile.name = root; 
         foundFile.lastMod = buf.st_mtime;
-        fileVector.push(foundFile);
+        fileVector.push_back(foundFile);
     
     }    
 }
