@@ -21,6 +21,7 @@ Design
 >   1. What system calls would you need to use?
 
 >	To do this action, you'd need to use the following system calls: opendir(), readdir(), closedir(), and stat().
+>   
 >   2. What information would you need to store and what data structures would
 >      you need?
 
@@ -35,8 +36,6 @@ Design
 >   You need to use the following system calls: system().
    
 >   2. How would you pass the environment variables to the command?
-
-.
 
 > Explain how you would handle a [SIGINT] signal and what you would need to
 > cleanup?
