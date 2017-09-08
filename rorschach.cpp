@@ -6,6 +6,8 @@
 
 
 //Necessary Includes
+#include "scanner.h"
+#include "file_scan.h"
 #include <iostream>				//cin, cout
 #include <string>				//string
 #include <stdlib.h>				//atoi
@@ -16,6 +18,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <fstream>
+#include <limits.h>
 
 using namespace std;			//STL namespace
 
@@ -56,11 +59,19 @@ int main(int argc, char *argv[]){
 		}
 	}
 	ROOT = flag;
-
+	string full_root_path = realpath(ROOT.c_str(), NULL);
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
+  	
+	vector<file_scan> previous_scan;
+	vector<file_scan> current_scan;
 
-
+	scan(full_root_path, current_scan);
+	
+	for (uint i=0; i<current_scan.size(); i++){
+		cout << current_scan[i].name << endl;
+	}
+		
 	return 0;		//Successful end
 }
 

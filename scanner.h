@@ -16,7 +16,7 @@
 
 using namespace std;
 
-void scan(string root, vector<file_scan> fileVector) {
+void scan(string root, vector<file_scan> &fileVector) {
     DIR *dir;
     struct dirent *dp;
     struct stat buf;
