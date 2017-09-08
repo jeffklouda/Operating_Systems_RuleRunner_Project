@@ -20,7 +20,7 @@
 using namespace std;			//STL namespace
 
 //Function prototypes
-void rule_loader(vector<string>&);
+void rule_loader(vector<vector<string>>&);
 
 //Global Variables
 int TIME_TO_SCAN = 5;
@@ -57,19 +57,29 @@ int main(int argc, char *argv[]){
 	}
 	ROOT = flag;
 
-	vector<string> rules_list;
+	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
-
 
 
 	return 0;		//Successful end
 }
 
-void rule_loader(vector<string> &rules_list){
+void rule_loader(vector<vector<string>> &rules_list){
 	ifstream opened_file(RULES_LOCATION);
+	vector<string> raw_rules;
 	string rules_line;
 	while (getline(opened_file, rules_line)){
-		rules_list.push_back(rules_line);
+		raw_rules.push_back(rules_line);
+	}
+	
+	string word;
+	vector<string> empty_vector;
+	for (uint i = 0; i < raw_rules.size(); i++){
+		istringstream string_stream(raw_rules[i]);
+		rules_list.push_back(empty_vector);
+		while (string_stream >> word){
+			rules_list[i].push_back(word);
+		}
 	}
 }
 
