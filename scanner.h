@@ -44,6 +44,7 @@ void scan(string root, vector<file_scan> fileVector) {
         file_scan foundFile;
         foundFile.name = root; 
         foundFile.lastMod = buf.st_mtime;
+        foundFile.inode = buf.st_ino;
         fileVector.push_back(foundFile);
     
     }    
