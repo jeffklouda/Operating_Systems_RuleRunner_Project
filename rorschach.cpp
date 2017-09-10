@@ -94,15 +94,15 @@ int main(int argc, char *argv[]){
         for (uint i = 0; i < rules_list.size(); i++){
 			if (rules_list[i][0] == "CREATE"){
 				for (auto it = createVec.begin(); it != createVec.end(); ++it) {
-                    check_match(rules_list[i], it->name);
+                    check_match(rules_list[i], *it);
                 }
 			}else if(rules_list[i][0] == "MODIFY"){
 				for (auto it = modifyVec.begin(); it != modifyVec.end(); ++it) {
-                    check_match(rules_list[i], it->name);
+                    check_match(rules_list[i], *it);
                 }
 			}else if(rules_list[i][0] == "DELETE"){
 				for (auto it = deleteVec.begin(); it != deleteVec.end(); ++it) {
-                    check_match(rules_list[i], it->name);
+                    check_match(rules_list[i], *it);
                 }
 			}else{
 				fprintf(stderr, "Unable to understand rule. Maybe you typed it in wrong?\n");
