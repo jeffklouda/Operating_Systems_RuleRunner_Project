@@ -7,7 +7,7 @@
 #include "rorschach.h"
 
 
-int run_commands(vector<string> rule, string fileName){
+int run_commands(vector<string> rule, string fileName, time_t timeStamp){
 	string command_string = "";
 	char* char_baseName = basename(const_cast<char*>(fileName.c_str()));
 	string string_baseName = char_baseName; 
@@ -24,8 +24,12 @@ int run_commands(vector<string> rule, string fileName){
 				command.push_back(const_cast<char*>(string_baseName.substr(0, lastdot).c_str()));
 			}
 		}else if (rule[i] == "${FULLPATH}"){
-			cout << "fullpath: " << fileName << endl;
 			command.push_back(const_cast<char*>(fileName.c_str()));
+		}else if (rule[i] == "${TIMESTAMP}"){
+			string string_timeStamp = to_string(timeStamp);
+			command.push_back(const_cast<char*>(string_timeStamp.c_str()));
+		}else if (rule[i] == "${EVENT}"){
+			command.push_back(const_cast<char*>(rule[0].c_str()));
 		}else{
 			command.push_back(const_cast<char*>(rule[i].c_str()));
 		}
