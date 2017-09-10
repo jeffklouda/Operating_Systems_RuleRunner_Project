@@ -324,7 +324,7 @@ set of custom rules:
         process = create_process(command, timeout=1)
         if process.returncode is None:
             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-            negative('Looks like you cannot handle invalid rules')
+            negative_cowsay('Looks like you cannot handle invalid rules')
         else:
             handles_invalid_rules = True
             positive_cowsay('Looks like you can handle invalid rules')
