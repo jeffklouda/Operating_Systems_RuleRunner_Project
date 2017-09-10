@@ -13,6 +13,7 @@
 #include <sys/wait.h>		//wait (for parent)
 #include <unistd.h>			//unistd
 #include <map>				//STL maps
+#include <iostream>			//cin, cout
 
 using namespace std;
 
