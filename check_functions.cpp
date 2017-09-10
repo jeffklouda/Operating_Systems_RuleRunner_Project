@@ -70,12 +70,13 @@ void check_delete(  map<string,file_scan> &prev_scan,
 }
 
 void check_match (vector<string> &rule, file_scan fileN) {
+    char* fullPathName = const_cast<char*>(fileN.name.c_str());
     char* fileName = basename(const_cast<char*>(fileN.name.c_str()));
     if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)
         || !fnmatch(rule[1].c_str(), fileN.name.c_str(), FNM_EXTMATCH)) {
         // run rule
         cout << "Matched \"" << rule[1] << "\" pattern on \"";
         cout << fileName << "\"\n";
-        run_commands(rule, fileName, fileN.lastMod);
+        run_commands(rule, fullPathName, fileN.lastMod);
     }    
 }
