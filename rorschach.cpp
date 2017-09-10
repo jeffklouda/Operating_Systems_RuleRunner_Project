@@ -24,6 +24,7 @@
 uint TIME_TO_SCAN = 5;
 string ROOT;
 string RULES_LOCATION = "rules";
+bool runningFlag = true;
 
 //Usage Function
 void usage(){
@@ -35,10 +36,17 @@ void usage(){
 			"	-t SECONDS	Time between scans (default is 5 seconds)	\n";
 }
 
+//Signal Handler
+void sig_handler (int sig) {
+    cout << "Cleaning up...\n";
+    runningFlag = false;
+}
+
 //Main Function
 int main(int argc, char *argv[]){
 
-	//Command-Line Parsing
+	signal(SIGINT, sig_handler);
+    //Command-Line Parsing
 	string PROGRAM_NAME = argv[0];
 	int arg_index = 1;	
 	string flag;
@@ -68,7 +76,7 @@ int main(int argc, char *argv[]){
 	scan(full_root_path, current_scan);
 	
 	cout << "Monitoring " << full_root_path << endl;
-	while(true){
+	while(runningFlag){
 		sleep(TIME_TO_SCAN);
 		previous_scan = current_scan;
 		scan(full_root_path, current_scan);
@@ -82,7 +90,7 @@ int main(int argc, char *argv[]){
 			}
 		}
 	}
-		
+	cout << "Bye!\n";	
 	return 0;		//Successful end
 }
 
@@ -104,5 +112,4 @@ void rule_loader(vector<vector<string>> &rules_list){
 		}
 	}
 }
-
 
