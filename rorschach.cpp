@@ -80,7 +80,6 @@ int main(int argc, char *argv[]){
 	
 	cout << "Monitoring " << full_root_path << endl;
 	while(runningFlag){
-		sleep(TIME_TO_SCAN);
 		previous_scan = current_scan;
 		current_scan.clear();
 		scan(full_root_path, current_scan);
@@ -105,8 +104,12 @@ int main(int argc, char *argv[]){
 				for (auto it = deleteVec.begin(); it != deleteVec.end(); ++it) {
                     check_match(rules_list[i], it->name);
                 }
-			}
+			}else{
+				fprintf(stderr, "Unable to understand rule. Maybe you typed it in wrong?\n");
+				return EXIT_FAILURE;
 		}
+		}
+	sleep(TIME_TO_SCAN);
 	}
 	cout << "Bye!\n";	
 	return 0;		//Successful end
