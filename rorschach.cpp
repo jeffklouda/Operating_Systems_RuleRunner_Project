@@ -6,21 +6,16 @@
 
 
 //Necessary Includes
-#include "scanner.h"
-#include "file_scan.h"
+#include "rorschach.h"
 #include <iostream>				//cin, cout
-#include <string>				//string
 #include <stdlib.h>				//atoi
-#include <sys/stat.h>			//stat()
 #include <sys/types.h>
 #include <fcntl.h>
-#include <vector>				//vectors
 #include <unistd.h>
 #include <sstream>
 #include <fstream>
 #include <limits.h>
 
-using namespace std;			//STL namespace
 
 //Function prototypes
 void rule_loader(vector<vector<string>>&);
