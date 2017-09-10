@@ -9,11 +9,11 @@
 
 #include "rorschach.h"
 #include <string>
-#include <vector>
+#include <map>
 
 using namespace std;
 
-void scan(string root, vector<file_scan> &fileVector) {
+void scan(string root, map<ino_t, file_scan> &fileMap) {
     DIR *dir;
     struct dirent *dp;
     struct stat buf;
@@ -32,7 +32,7 @@ void scan(string root, vector<file_scan> &fileVector) {
             if (strcmp(dp->d_name, ".")!=0 && strcmp(dp->d_name, "..")!=0){ 
                 string d_name = dp->d_name;
                 string full_path = root + "/" + d_name;
-                scan(full_path, fileVector);
+                scan(full_path, fileMap);
             }
         }
     }
@@ -42,7 +42,7 @@ void scan(string root, vector<file_scan> &fileVector) {
         foundFile.name = root; 
         foundFile.lastMod = buf.st_mtime;
         foundFile.inode = buf.st_ino;
-        fileVector.push_back(foundFile);
+        fileMap.insert(std::pair<ino_t,file_scan>(foundFile.inode, foundFile));
     
     }    
 }

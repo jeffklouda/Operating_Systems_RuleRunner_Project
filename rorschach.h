@@ -11,7 +11,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
+#include <map>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ struct file_scan {
     ino_t inode;
 };
 
-void scan(string root, vector<file_scan> &fileVector);
+void scan(string root, map<ino_t, file_scan> &fileVector);
 
 
 #endif
