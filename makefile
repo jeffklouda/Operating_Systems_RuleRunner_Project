@@ -9,6 +9,10 @@ rorschach.o: rorschach.cpp
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+check_functions.o: check_functions.cpp
+	@echo "Compiling $@"
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
 rule_runner.o: rule_runner.cpp
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
@@ -17,7 +21,7 @@ scanner.o: scanner.cpp
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-rorschach: rorschach.o scanner.o rule_runner.o
+rorschach: rorschach.o scanner.o rule_runner.o check_functions.o
 	@echo "Linking $@..."
 	@$(LXX) $(LXXFLAGS) -o $@ $^
 
