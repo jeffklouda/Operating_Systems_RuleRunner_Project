@@ -15,7 +15,9 @@
 #include <sstream>
 #include <fstream>
 #include <limits.h>
-
+#include <sys/stat.h>
+#include <map>
+#include <vector>
 
 //Function prototypes
 void rule_loader(vector<vector<string>>&);
@@ -58,8 +60,8 @@ int main(int argc, char *argv[]){
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
   	
-	vector<file_scan> previous_scan;
-	vector<file_scan> current_scan;
+	map<ino_t, file_scan> previous_scan;
+	map<ino_t, file_scan> current_scan;
 
 	scan(full_root_path, current_scan);
 	
