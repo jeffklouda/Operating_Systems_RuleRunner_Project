@@ -20,7 +20,6 @@ using namespace std;
 void check_create(  map<string,file_scan> &prev_scan,
                     map<string,file_scan> &curr_scan,
                     vector<string> &rule) {
-    
     for (auto it = curr_scan.begin(); it != curr_scan.end(); ++it) {
 		//cout << it->second.name << endl;
         map<string,file_scan>::iterator findIt;
@@ -31,15 +30,12 @@ void check_create(  map<string,file_scan> &prev_scan,
             cout << "Detected \"CREATE\" event on \"";
             cout << fileName;
             cout << "\"\n";
-			cout << "** " << it->second.name.c_str() << " **\n";
             if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)) {
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
                 run_commands(rule, fileName);
-            }else{
-				cout << "Didn't match\n";
-			}
+            }
         }
     }   
 }

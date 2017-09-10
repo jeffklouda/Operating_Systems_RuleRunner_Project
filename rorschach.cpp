@@ -79,6 +79,7 @@ int main(int argc, char *argv[]){
 	while(runningFlag){
 		sleep(TIME_TO_SCAN);
 		previous_scan = current_scan;
+		current_scan.clear();
 		scan(full_root_path, current_scan);
 		for (uint i = 0; i < rules_list.size(); i++){
 			if (rules_list[i][0] == "CREATE"){
