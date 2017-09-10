@@ -12,6 +12,8 @@
 #include <string>
 #include <regex>
 #include <iostream>
+#include <glob.h>
+#include <fnmatch.h>
 
 using namespace std;
 
@@ -20,21 +22,24 @@ void check_create(  map<ino_t,file_scan> &prev_scan,
                     vector<string> &rule) {
     
     for (auto it = curr_scan.begin(); it != curr_scan.end(); ++it) {
+		//cout << it->second.name << endl;
         map<ino_t,file_scan>::iterator findIt;
         findIt = prev_scan.find(it->first);
         if (findIt == prev_scan.end()) {
             // file created
-            string fileName = it->second.name;
-            regex regexName (rule[1]);
+            char* fileName = basename(const_cast<char*>(it->second.name.c_str()));
             cout << "Detected \"CREATE\" event on \"";
-            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << fileName;
             cout << "\"\n";
-            if (regex_match(fileName, regexName)) {
+			cout << "** " << it->second.name.c_str() << " **\n";
+            if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)) {
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
                 run_commands(rule, fileName);
-            }
+            }else{
+				cout << "Didn't match\n";
+			}
         }
     }   
 }
@@ -48,12 +53,11 @@ void check_modify(  map<ino_t,file_scan> &prev_scan,
         findIt = prev_scan.find(it->first);
         if (findIt->second.lastMod != it->second.lastMod) {
             // file modified
-            string fileName = it->second.name;
-            regex regexName (rule[1]);
+            char* fileName = basename(const_cast<char*>(it->second.name.c_str()));
             cout << "Detected \"MODIFY\" event on \"";
-            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << fileName;
             cout << "\"\n";
-            if (regex_match(fileName, regexName)) {
+            if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)) {
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
@@ -72,12 +76,11 @@ void check_delete(  map<ino_t,file_scan> &prev_scan,
         findIt = curr_scan.find(it->first);
         if (findIt == curr_scan.end()) {
             // file deleted
-            string fileName = it->second.name;
-            regex regexName (rule[1]);
+            char* fileName = basename(const_cast<char*>(it->second.name.c_str()));
             cout << "Detected \"DELETE\" event on \"";
-            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << fileName;
             cout << "\"\n";
-            if (regex_match(fileName, regexName)) {
+            if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)) {
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";

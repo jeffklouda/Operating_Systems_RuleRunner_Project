@@ -1,2 +1,2 @@
-MODIFY  *.c         cc -o ${BASEPATH} ${FULLPATH}
+CREATE  *.c         cc -o ${BASEPATH} ${FULLPATH}
 CREATE  *.py		echo hello

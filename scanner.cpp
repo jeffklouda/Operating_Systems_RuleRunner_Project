@@ -35,8 +35,9 @@ void scan(string root, map<ino_t, file_scan> &fileMap) {
                 scan(full_path, fileMap);
             }
         }
+		closedir(dir);
     }
-    else {
+    else if(S_ISREG(buf.st_mode)){
 
         file_scan foundFile;
         foundFile.name = root; 

@@ -13,6 +13,7 @@ int run_commands(vector<string> rule, string fileName){
 	string string_baseName = char_baseName; 
 	for (uint i=2; i < rule.size(); i++){
 		command_string += rule[i];
+		command_string += " ";
 	}
 	cout << "Executing action \"" << command_string << "\" on \"" << string_baseName << "\"" << endl;
 	vector<char *> command;

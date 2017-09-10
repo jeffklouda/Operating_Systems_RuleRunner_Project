@@ -38,7 +38,7 @@ void usage(){
 
 //Signal Handler
 void sig_handler (int sig) {
-    cout << "Cleaning up...\n";
+    cout << "\nCleaning up...\n";
     runningFlag = false;
 }
 
