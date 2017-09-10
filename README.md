@@ -27,7 +27,7 @@ Design
 
 >	You would need to store what files are in the directory on the previous
 scan and the date tag of the files on the previous scan. To keep track of 
-this, you can use a linked list of structs to compare the values of the 
+this, you can use a map that maps from the inode to a struct containing the filename and the time of the last modification to compare the values of the 
 current scan to the values of the previous scan. 
 
 > Explain how you would check if a rule matched an event and execute the
