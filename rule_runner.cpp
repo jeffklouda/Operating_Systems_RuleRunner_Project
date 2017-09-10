@@ -19,8 +19,12 @@ int run_commands(vector<string> rule, string fileName){
 	vector<char *> command;
 	for (uint i=2; i < rule.size(); i++){
 		if (rule[i] == "${BASEPATH}"){
-			command.push_back(const_cast<char*>(string_baseName.c_str()));
+			size_t lastdot = string_baseName.find_last_of(".");
+			if (lastdot != string::npos){
+				command.push_back(const_cast<char*>(string_baseName.substr(0, lastdot).c_str()));
+			}
 		}else if (rule[i] == "${FULLPATH}"){
+			cout << "fullpath: " << fileName << endl;
 			command.push_back(const_cast<char*>(fileName.c_str()));
 		}else{
 			command.push_back(const_cast<char*>(rule[i].c_str()));
