@@ -6,10 +6,12 @@
 
 #include "rorschach.h"
 #include <sys/stat.h>
+#include <libgen.h>
 #include <map>
 #include <vector>
 #include <string>
 #include <regex>
+#include <iostream>
 
 using namespace std;
 
@@ -24,8 +26,13 @@ void check_create(  map<ino_t,file_scan> &prev_scan,
             // file created
             string fileName = it->second.name;
             regex regexName (rule[1]);
+            cout << "Detected \"CREATE\" event on \"";
+            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << "\"\n";
             if (regex_match(fileName, regexName)) {
                 // run rule
+                cout << "Matched \"" << rule[1] << "\" pattern on \"";
+                cout << fileName << "\"\n";
                 run_commands(rule);
             }
         }
@@ -43,8 +50,13 @@ void check_modify(  map<ino_t,file_scan> &prev_scan,
             // file modified
             string fileName = it->second.name;
             regex regexName (rule[1]);
+            cout << "Detected \"MODIFY\" event on \"";
+            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << "\"\n";
             if (regex_match(fileName, regexName)) {
                 // run rule
+                cout << "Matched \"" << rule[1] << "\" pattern on \"";
+                cout << fileName << "\"\n";
                 run_commands(rule);
             }
         }
@@ -62,8 +74,13 @@ void check_delete(  map<ino_t,file_scan> &prev_scan,
             // file deleted
             string fileName = it->second.name;
             regex regexName (rule[1]);
+            cout << "Detected \"DELETE\" event on \"";
+            cout << basename(const_cast<char*>(fileName.c_str()));
+            cout << "\"\n";
             if (regex_match(fileName, regexName)) {
                 // run rule
+                cout << "Matched \"" << rule[1] << "\" pattern on \"";
+                cout << fileName << "\"\n";
                 run_commands(rule);
             }
         }
