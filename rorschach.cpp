@@ -23,7 +23,7 @@
 void rule_loader(vector<vector<string>>&);
 
 //Global Variables
-int TIME_TO_SCAN = 5;
+uint TIME_TO_SCAN = 5;
 string ROOT;
 string RULES_LOCATION = "rules";
 
@@ -69,8 +69,19 @@ int main(int argc, char *argv[]){
 
 	scan(full_root_path, current_scan);
 	
-	for (uint i=0; i<current_scan.size(); i++){
-		cout << current_scan[i].name << endl;
+	while(true){
+		sleep(TIME_TO_SCAN);
+		previous_scan = current_scan;
+		scan(full_root_path, current_scan);
+		for (uint i = 0; i < rules_list.size(); i++){
+			if (rules_list[i][0] == "CREATE"){
+				check_create(previous_scan, current_scan, rules_list[i]);
+			}else if(rules_list[i][0] == "MODIFY"){
+				check_modify(previous_scan, current_scan, rules_list[i]);
+			}else if(rules_list[i][0] == "DELETE"){
+				check_delete(previous_scan, current_scan, rules_list[i]);
+			}
+		}
 	}
 		
 	return 0;		//Successful end
