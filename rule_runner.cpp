@@ -8,7 +8,7 @@
 
 
 
-int run_commands(vector<string> rule){
+int run_commands(vector<string> rule, string fileName){
 	vector<char *> command;
 	for (uint i=2; i < rule.size(); i++){
 		command.push_back(const_cast<char*>(rule[i].c_str()));

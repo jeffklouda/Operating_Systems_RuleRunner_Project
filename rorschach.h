@@ -34,7 +34,7 @@ void scan(string root, map<ino_t, file_scan> &fileVector); //file scanner functi
 														   //(contained in scanner.cpp)
 
 
-int run_commands(vector<string> rule);	//fork() and exec() function
+int run_commands(vector<string> rule, string fileName);	//fork() and exec() function
 										//(contained in rule_runner.cpp)
 
 void check_create(map<ino_t,file_scan> &prev_scan,			//checks creations

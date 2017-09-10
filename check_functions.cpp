@@ -33,7 +33,7 @@ void check_create(  map<ino_t,file_scan> &prev_scan,
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
-                run_commands(rule);
+                run_commands(rule, fileName);
             }
         }
     }   
@@ -57,7 +57,7 @@ void check_modify(  map<ino_t,file_scan> &prev_scan,
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
-                run_commands(rule);
+                run_commands(rule, fileName);
             }
         }
     }
@@ -81,7 +81,7 @@ void check_delete(  map<ino_t,file_scan> &prev_scan,
                 // run rule
                 cout << "Matched \"" << rule[1] << "\" pattern on \"";
                 cout << fileName << "\"\n";
-                run_commands(rule);
+                run_commands(rule, fileName);
             }
         }
     }
