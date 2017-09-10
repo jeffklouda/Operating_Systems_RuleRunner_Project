@@ -40,14 +40,16 @@ int run_commands(vector<string> rule, string fileName);	//fork() and exec() func
 
 void check_create(map<string,file_scan> &prev_scan,			//checks creations
                     map<string,file_scan> &curr_scan,		//(contained in check_functions.cpp)
-                    vector<string> &rule);
+                    vector<file_scan> &createVec);
 
 void check_modify(map<string,file_scan> &prev_scan,			//checks modifications
                     map<string,file_scan> &curr_scan,		//(contained in check_functions.cpp)
-                    vector<string> &rule);
+                    vector<file_scan> &modifyVec);
 
 void check_delete(map<string,file_scan> &prev_scan,			//checks deletions
                     map<string,file_scan> &curr_scan,		//(contained in check_functions.cpp)
-                    vector<string> &rule);
+                    vector<file_scan> &deleteVec);
+
+void check_match(vector<string> &rule, string fileN);
 
 #endif
