@@ -41,7 +41,8 @@ void check_modify(  map<string,file_scan> &prev_scan,
     for (auto it = curr_scan.begin(); it != curr_scan.end(); ++it) {
         map<string,file_scan>::iterator findIt;
         findIt = prev_scan.find(it->first);
-        if (findIt->second.lastMod != it->second.lastMod) {
+        if (findIt != prev_scan.end() && 
+            findIt->second.lastMod != it->second.lastMod) {
             // file modified
             modifyVec.push_back(it->second);
             cout << "Detected \"MODIFY\" event on \"";
