@@ -67,6 +67,7 @@ int main(int argc, char *argv[]){
 
 	scan(full_root_path, current_scan);
 	
+	cout << "Monitoring " << full_root_path << endl;
 	while(true){
 		sleep(TIME_TO_SCAN);
 		previous_scan = current_scan;
