@@ -70,8 +70,8 @@ int main(int argc, char *argv[]){
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
   	
-	map<ino_t, file_scan> previous_scan;
-	map<ino_t, file_scan> current_scan;
+	map<string, file_scan> previous_scan;
+	map<string, file_scan> current_scan;
 
 	scan(full_root_path, current_scan);
 	

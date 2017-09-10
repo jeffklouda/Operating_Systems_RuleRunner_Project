@@ -17,13 +17,13 @@
 
 using namespace std;
 
-void check_create(  map<ino_t,file_scan> &prev_scan,
-                    map<ino_t,file_scan> &curr_scan,
+void check_create(  map<string,file_scan> &prev_scan,
+                    map<string,file_scan> &curr_scan,
                     vector<string> &rule) {
     
     for (auto it = curr_scan.begin(); it != curr_scan.end(); ++it) {
 		//cout << it->second.name << endl;
-        map<ino_t,file_scan>::iterator findIt;
+        map<string,file_scan>::iterator findIt;
         findIt = prev_scan.find(it->first);
         if (findIt == prev_scan.end()) {
             // file created
@@ -44,12 +44,12 @@ void check_create(  map<ino_t,file_scan> &prev_scan,
     }   
 }
 
-void check_modify(  map<ino_t,file_scan> &prev_scan,
-                    map<ino_t,file_scan> &curr_scan,
+void check_modify(  map<string,file_scan> &prev_scan,
+                    map<string,file_scan> &curr_scan,
                     vector<string> &rule) {
 
     for (auto it = curr_scan.begin(); it != curr_scan.end(); ++it) {
-        map<ino_t,file_scan>::iterator findIt;
+        map<string,file_scan>::iterator findIt;
         findIt = prev_scan.find(it->first);
         if (findIt->second.lastMod != it->second.lastMod) {
             // file modified
@@ -67,12 +67,12 @@ void check_modify(  map<ino_t,file_scan> &prev_scan,
     }
 }
 
-void check_delete(  map<ino_t,file_scan> &prev_scan,
-                    map<ino_t,file_scan> &curr_scan,
+void check_delete(  map<string,file_scan> &prev_scan,
+                    map<string,file_scan> &curr_scan,
                     vector<string> &rule) {
 
     for (auto it = prev_scan.begin(); it != prev_scan.end(); ++it) {
-        map<ino_t,file_scan>::iterator findIt;
+        map<string,file_scan>::iterator findIt;
         findIt = curr_scan.find(it->first);
         if (findIt == curr_scan.end()) {
             // file deleted

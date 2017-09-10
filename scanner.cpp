@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void scan(string root, map<ino_t, file_scan> &fileMap) {
+void scan(string root, map<string, file_scan> &fileMap) {
     DIR *dir;
     struct dirent *dp;
     struct stat buf;
@@ -43,7 +43,7 @@ void scan(string root, map<ino_t, file_scan> &fileMap) {
         foundFile.name = root; 
         foundFile.lastMod = buf.st_mtime;
         foundFile.inode = buf.st_ino;
-        fileMap.insert(std::pair<ino_t,file_scan>(foundFile.inode, foundFile));
+        fileMap.insert(std::pair<string,file_scan>(foundFile.name, foundFile));
     
     }    
 }
