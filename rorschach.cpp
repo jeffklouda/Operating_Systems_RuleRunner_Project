@@ -56,6 +56,10 @@ int main(int argc, char *argv[]){
 		}
 	}
 	ROOT = flag;
+    if (ROOT.empty()) {
+        usage();
+        return 1;
+    }
 	string full_root_path = realpath(ROOT.c_str(), NULL);
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
