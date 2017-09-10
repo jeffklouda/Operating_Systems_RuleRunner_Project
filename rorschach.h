@@ -35,7 +35,7 @@ void scan(string root, map<string, file_scan> &fileMap); //file scanner function
 														   //(contained in scanner.cpp)
 
 
-int run_commands(vector<string> rule, string fileName);	//fork() and exec() function
+int run_commands(vector<string> rule, string fileName, time_t timeStamp);	//fork() and exec() function
 										//(contained in rule_runner.cpp)
 
 void check_create(map<string,file_scan> &prev_scan,			//checks creations
@@ -50,6 +50,6 @@ void check_delete(map<string,file_scan> &prev_scan,			//checks deletions
                     map<string,file_scan> &curr_scan,		//(contained in check_functions.cpp)
                     vector<file_scan> &deleteVec);
 
-void check_match(vector<string> &rule, string fileN);
+void check_match(vector<string> &rule, file_scan fileN);
 
 #endif

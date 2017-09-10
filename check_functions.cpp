@@ -69,13 +69,13 @@ void check_delete(  map<string,file_scan> &prev_scan,
     }
 }
 
-void check_match (vector<string> &rule, string fileN) {
-    char* fileName = basename(const_cast<char*>(fileN.c_str()));
+void check_match (vector<string> &rule, file_scan fileN) {
+    char* fileName = basename(const_cast<char*>(fileN.name.c_str()));
     if (!fnmatch(rule[1].c_str(), (const char*)fileName, FNM_EXTMATCH)
-        || !fnmatch(rule[1].c_str(), fileN.c_str(), FNM_EXTMATCH)) {
+        || !fnmatch(rule[1].c_str(), fileN.name.c_str(), FNM_EXTMATCH)) {
         // run rule
         cout << "Matched \"" << rule[1] << "\" pattern on \"";
         cout << fileName << "\"\n";
-        run_commands(rule, fileName);
+        run_commands(rule, fileName, fileN.lastMod);
     }    
 }
