@@ -8,13 +8,14 @@
 
 
 
-void run_commands(vector<string> rule){
-	string command = "";
-	for (int i=3; i < rule.size(); i++){
-		command += rule[i];
+int run_commands(vector<string> rule){
+	vector<char *> command;
+	for (uint i=2; i < rule.size(); i++){
+		command.push_back(const_cast<char*>(rule[i].c_str()));
 	}
+	command.push_back(NULL);
+	char **command_char = &command[0];
 
-	int status;
 	pid_t pid = fork();
 	
 
@@ -23,7 +24,7 @@ void run_commands(vector<string> rule){
 			fprintf(stderr, "Unable to fork: %s\n", strerror(errno));
 			break;
 		case 0:			//Child
-			execvp(rule[2].c_str(), command.c_str());
+			execvp(command_char[0], command_char);
 			_exit(EXIT_FAILURE);
 		default:
 			wait(NULL);

@@ -9,13 +9,15 @@ rorschach.o: rorschach.cpp
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-
+rule_runner.o: rule_runner.cpp
+	@echo "Compiling $@"
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 scanner.o: scanner.cpp
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-rorschach: rorschach.o scanner.o
+rorschach: rorschach.o scanner.o rule_runner.o
 	@echo "Linking $@..."
 	@$(LXX) $(LXXFLAGS) -o $@ $^
 
