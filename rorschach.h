@@ -1,26 +1,34 @@
 #ifndef RORSCHACH_H
 #define RORSCHACH_H
 
-#include <string.h>
-#include <errno.h>
-#include <string>
-#include <sys/stat.h>
-#include <vector>
-#include <stdio.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <map>
+#include <string.h>			//C string library
+#include <errno.h>			//errno
+#include <string>			//STL Strings
+#include <sys/stat.h>		//stat()
+#include <vector>			//STL Vectors
+#include <stdio.h>			//stdio
+#include <sys/types.h>		//some types
+#include <fcntl.h>			//fcntl
+#include <signal.h>			//signal management
+#include <sys/wait.h>		//wait (for parent)
+#include <unistd.h>			//unistd
+#include <map>				//STL maps
 
 using namespace std;
+
+
+//Structs
 
 struct file_scan {		//file_scan struct
     std::string name;
     time_t lastMod;
     ino_t inode;
 };
+
+
+//Function prototypes
+
+void rule_loader(vector<vector<string>>&); //(contained in rorschach.cpp)
 
 void scan(string root, map<ino_t, file_scan> &fileVector); //file scanner function
 														   //(contained in scanner.cpp)

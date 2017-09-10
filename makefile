@@ -5,19 +5,19 @@ LXXFLAGS = -L.
 
 all: rorschach
 
-rorschach.o: rorschach.cpp
+rorschach.o: rorschach.cpp rorschach.h
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-check_functions.o: check_functions.cpp
+check_functions.o: check_functions.cpp rorschach.h
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-rule_runner.o: rule_runner.cpp
+rule_runner.o: rule_runner.cpp rorschach.h
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-scanner.o: scanner.cpp
+scanner.o: scanner.cpp rorschach.h
 	@echo "Compiling $@"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 

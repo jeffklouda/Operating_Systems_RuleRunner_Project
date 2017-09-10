@@ -6,23 +6,21 @@
 
 
 //Necessary Includes
-#include "rorschach.h"
+#include "rorschach.h"			//header file (contains prototypes)
 #include <iostream>				//cin, cout
 #include <stdlib.h>				//atoi
-#include <sys/types.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sstream>
-#include <fstream>
-#include <limits.h>
-#include <sys/stat.h>
-#include <map>
-#include <vector>
-
-//Function prototypes
-void rule_loader(vector<vector<string>>&);
+#include <sys/types.h>			//contains types
+#include <fcntl.h>				//Arguments for use by open()
+#include <unistd.h>				//standard symbolic constant
+#include <sstream>				//stringstreams
+#include <fstream>				//file input/output
+#include <limits.h>				//Macros
+#include <sys/stat.h>			//stat()
+#include <map>					//STL Maps
+#include <vector>				//STL Vectors
 
 //Global Variables
+
 uint TIME_TO_SCAN = 5;
 string ROOT;
 string RULES_LOCATION = "rules";
