@@ -28,12 +28,12 @@ bool runningFlag = true;
 
 //Usage Function
 void usage(){
-	cout << "Usage: rorschach [options] ROOT							\n"
-            "                               							\n"
-			"Options:													\n"
-			"	-h			Print this help message						\n"
-			"	-f RULES	Load rules from this file (default is rules)\n"
-			"	-t SECONDS	Time between scans (default is 5 seconds)	\n";
+	cout << 	"Usage: rorschach [options] ROOT							\n"
+            		"                               							\n"
+			"Options:										\n"
+			"	-h		Print this help message						\n"
+			"	-f RULES	Load rules from this file (default is rules)			\n"
+			"	-t SECONDS	Time between scans (default is 5 seconds)			\n";
 }
 
 //Signal Handler
@@ -62,19 +62,19 @@ int main(int argc, char *argv[]){
 		}
 	}
 	ROOT = flag;
-    if (ROOT.empty()) {
-        usage();
-        return 1;
-    }
+    	if (ROOT.empty()) {
+        	usage();
+        	return 1;
+    	}
 	string full_root_path = realpath(ROOT.c_str(), NULL);
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
   	
 	map<string, file_scan> previous_scan;
 	map<string, file_scan> current_scan;
-    vector<file_scan> createVec;
-    vector<file_scan> modifyVec;
-    vector<file_scan> deleteVec;
+    	vector<file_scan> createVec;
+    	vector<file_scan> modifyVec;
+    	vector<file_scan> deleteVec;
 
 	scan(full_root_path, current_scan);
 	
@@ -84,35 +84,32 @@ int main(int argc, char *argv[]){
 		current_scan.clear();
 		scan(full_root_path, current_scan);
 		
-        createVec.clear();
-        modifyVec.clear();
-        deleteVec.clear();
-        check_create(previous_scan, current_scan, createVec);
-        check_modify(previous_scan, current_scan, modifyVec);
-        check_delete(previous_scan, current_scan, deleteVec);
+        	createVec.clear();
+        	modifyVec.clear();
+        	deleteVec.clear();
+        	check_create(previous_scan, current_scan, createVec);
+        	check_modify(previous_scan, current_scan, modifyVec);
+        	check_delete(previous_scan, current_scan, deleteVec);
 
-        for (uint i = 0; i < rules_list.size(); i++){
-			//cout << "HERE0\n";
+		for (uint i = 0; i < rules_list.size(); i++){
 			if (rules_list[i][0] == "CREATE"){
-				//cout << "HERE1\n";
 				for (auto it = createVec.begin(); it != createVec.end(); ++it) {
-					cout << "HERE\n";
-                    check_match(rules_list[i], *it);
-                }
+			    		check_match(rules_list[i], *it);
+				}
 			}else if(rules_list[i][0] == "MODIFY"){
 				for (auto it = modifyVec.begin(); it != modifyVec.end(); ++it) {
-                    check_match(rules_list[i], *it);
-                }
+			    		check_match(rules_list[i], *it);
+				}
 			}else if(rules_list[i][0] == "DELETE"){
 				for (auto it = deleteVec.begin(); it != deleteVec.end(); ++it) {
-                    check_match(rules_list[i], *it);
-                }
+			    		check_match(rules_list[i], *it);
+				}
 			}else{
 				fprintf(stderr, "Unable to understand rule. Maybe you typed it in wrong?\n");
 				return EXIT_FAILURE;
+			}
 		}
-		}
-	sleep(TIME_TO_SCAN);
+			sleep(TIME_TO_SCAN);
 	}
 	cout << "Bye!\n";	
 	return 0;		//Successful end
