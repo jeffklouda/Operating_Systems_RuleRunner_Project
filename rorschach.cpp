@@ -104,7 +104,7 @@ int main(int argc, char *argv[]){
 				for (auto it = deleteVec.begin(); it != deleteVec.end(); ++it) {
 			    		check_match(rules_list[i], *it);
 				}
-			}else{
+			}else if(rules_list[i][0] != "#"){
 				fprintf(stderr, "Unable to understand rule. Maybe you typed it in wrong?\n");
 				return EXIT_FAILURE;
 			}

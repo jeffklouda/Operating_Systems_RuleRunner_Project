@@ -1,3 +1,4 @@
+#		This is a comment
 CREATE  *.c         cc -o ${BASEPATH} ${FULLPATH}
 CREATE  *.py		echo hello
 CREATE  DYING_ISNT_EASY         touch herekk/YOU_LEFT_ME_JUST_WHEN_I_NEEDED_YOU
