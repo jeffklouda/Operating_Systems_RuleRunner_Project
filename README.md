@@ -53,7 +53,7 @@ current scan to the values of the previous scan.
 >   2. How would you know what resources to cleanup?
 
     We will have to make sure all files opened by the program are closed
-    which we can do by
+    which we can do by setting a flag that allows the program to finish the loop. This allows all files to complete their actions and that includes closing. 
 
 Testing
 -------
@@ -65,7 +65,7 @@ Analysis
 --------
 
 > How is what `rorschach` does similar to how a [system call] operates?
-
+> A system call will intercept an event (exception) and conduct an action based on this event signal using the appropriate function from the trap table. In a similar way, `rorschach` intercepts events (CREATE, MODIFY, and DELETE) and uses the `rules` file similarly to a trap table to complete an action in response to the event. 
 .
 
 > As described in the project requirements, `rorschach` periodically scans the
@@ -74,10 +74,10 @@ Analysis
 >
 >   1. In this specific context, why could this be considered a possible
 >      negative design flaw?
->
+>	This could be a negative design flaw since files could be added and deleted between scan times, thereby making it seem like those actions didn't occur at all. Also, if something is created, modified, or deleted while scanning, it my confuddle the program. 
 >   2. Consider [inotify(7)] provided by [Linux].  How would these system calls
 >      help address the problem of [busy waiting]?
->
+>	Inotify() would solve the problem of busy waiting.
 >   3. Why might we still consider using [busy waiting] as specified in the
 >      original design rather than use something like [inotify(7)]?
 

@@ -92,6 +92,10 @@ int main(int argc, char *argv[]){
         	check_delete(previous_scan, current_scan, deleteVec);
 
 		for (uint i = 0; i < rules_list.size(); i++){
+			if (rules_list[i].size() < 3 && rules_list[i][0] != "#"){
+				fprintf(stderr, "Unable to understand rule: not long enough.\n");
+				return EXIT_FAILURE;
+			}
 			if (rules_list[i][0] == "CREATE"){
 				for (auto it = createVec.begin(); it != createVec.end(); ++it) {
 			    		check_match(rules_list[i], *it);
