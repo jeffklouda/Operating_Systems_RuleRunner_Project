@@ -92,9 +92,9 @@ int main(int argc, char *argv[]){
         check_delete(previous_scan, current_scan, deleteVec);
 
         for (uint i = 0; i < rules_list.size(); i++){
-			cout << "HERE0\n";
+			//cout << "HERE0\n";
 			if (rules_list[i][0] == "CREATE"){
-				cout << "HERE1\n";
+				//cout << "HERE1\n";
 				for (auto it = createVec.begin(); it != createVec.end(); ++it) {
 					cout << "HERE\n";
                     check_match(rules_list[i], *it);
