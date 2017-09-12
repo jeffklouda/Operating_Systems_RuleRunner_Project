@@ -56,9 +56,9 @@ int main(int argc, char *argv[]){
 			usage();
 			return 0;
 		}else if (flag == "-f"){
-			RULES_LOCATION = argv[++arg_index];
+			RULES_LOCATION = argv[arg_index++];
 		}else if (flag == "-t"){
-			TIME_TO_SCAN = atoi(argv[++arg_index]);
+			TIME_TO_SCAN = atoi(argv[arg_index++]);
 		}
 	}
 	ROOT = flag;
@@ -84,17 +84,16 @@ int main(int argc, char *argv[]){
 		current_scan.clear();
 		scan(full_root_path, current_scan);
 		
-        	createVec.clear();
-        	modifyVec.clear();
-        	deleteVec.clear();
-        	check_create(previous_scan, current_scan, createVec);
-        	check_modify(previous_scan, current_scan, modifyVec);
-        	check_delete(previous_scan, current_scan, deleteVec);
-
+        createVec.clear();
+        modifyVec.clear();
+        deleteVec.clear();
+        check_create(previous_scan, current_scan, createVec);
+        check_modify(previous_scan, current_scan, modifyVec);
+        check_delete(previous_scan, current_scan, deleteVec);
 		for (uint i = 0; i < rules_list.size(); i++){
-			if (rules_list[i].size() < 3 && rules_list[i][0] != "#"){
-				fprintf(stderr, "Unable to understand rule: not long enough.\n");
-				return EXIT_FAILURE;
+	
+			if (rules_list[i].empty()){
+				continue;
 			}
 			if (rules_list[i][0] == "CREATE"){
 				for (auto it = createVec.begin(); it != createVec.end(); ++it) {
@@ -127,6 +126,7 @@ void rule_loader(vector<vector<string>> &rules_list){
 		raw_rules.push_back(rules_line);
 	}
 	
+
 	string word;
 	vector<string> empty_vector;
 	for (uint i = 0; i < raw_rules.size(); i++){
