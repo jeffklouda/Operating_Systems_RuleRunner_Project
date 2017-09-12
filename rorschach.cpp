@@ -24,6 +24,7 @@
 uint TIME_TO_SCAN = 5;
 string ROOT;
 string RULES_LOCATION = "rules";
+int ROOT_STRING_LENGTH;
 bool runningFlag = true;
 
 //Usage Function
@@ -67,6 +68,7 @@ int main(int argc, char *argv[]){
         	return 1;
     	}
 	string full_root_path = realpath(ROOT.c_str(), NULL);
+	ROOT_STRING_LENGTH = full_root_path.length();
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
   	

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+extern int ROOT_STRING_LENGTH;
+extern string ROOT;
 void check_create(  map<string,file_scan> &prev_scan,
                     map<string,file_scan> &curr_scan,
                     vector<file_scan> &createVec) {
@@ -28,7 +30,8 @@ void check_create(  map<string,file_scan> &prev_scan,
             // file created
             createVec.push_back(it->second);
             cout << "Detected \"CREATE\" event on \"";
-            cout << basename(const_cast<char*>(it->first.c_str()));
+			string extended_filename = ROOT + it->second.name.erase(0, ROOT_STRING_LENGTH);
+            cout << extended_filename;
             cout << "\"\n";
         }
     }   
@@ -46,7 +49,8 @@ void check_modify(  map<string,file_scan> &prev_scan,
             // file modified
             modifyVec.push_back(it->second);
             cout << "Detected \"MODIFY\" event on \"";
-            cout << basename(const_cast<char*>(it->first.c_str()));
+            string extended_filename = ROOT + it->second.name.erase(0, ROOT_STRING_LENGTH);
+            cout << extended_filename;
             cout << "\"\n";
         }
     }
@@ -63,7 +67,8 @@ void check_delete(  map<string,file_scan> &prev_scan,
             // file deleted
             deleteVec.push_back(it->second);
             cout << "Detected \"DELETE\" event on \"";
-            cout << basename(const_cast<char*>(it->first.c_str()));
+            string extended_filename = ROOT + it->second.name.erase(0, ROOT_STRING_LENGTH);
+            cout << extended_filename;
             cout << "\"\n";
         }
     }
