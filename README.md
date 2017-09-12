@@ -49,6 +49,7 @@ Design
 >    
 >
 >   1. What system calls would you need to use?
+>
 >   We will use signal(SIGINT, handler()) where handler() is our handler
 >   function which will allow our program to clean up before ending.
 >
@@ -69,6 +70,7 @@ Analysis
 --------
 
 > How is what `rorschach` does similar to how a [system call] operates?
+>
 > A system call will intercept an event (exception) and conduct an action based on this event signal using the appropriate function from the trap table. In a similar way, `rorschach` intercepts events (CREATE, MODIFY, and DELETE) and uses the `rules` file similarly to a trap table to complete an action in response to the event. 
 .
 
@@ -78,12 +80,15 @@ Analysis
 >
 >   1. In this specific context, why could this be considered a possible
 >      negative design flaw?
+>
 >	This could be a negative design flaw since files could be added and deleted between scan times, thereby making it seem like those actions didn't occur at all. Also, if something is created, modified, or deleted while scanning, it my confuddle the program. 
 >   2. Consider [inotify(7)] provided by [Linux].  How would these system calls
 >      help address the problem of [busy waiting]?
+>
 >	Inotify() would solve the problem of busy waiting. It would solve this problem because inotify instances will watch files and directories and know the instant that the files have been changed. This is a problem in busy waiting, since the scanning only occurred at set intervals.
 >   3. Why might we still consider using [busy waiting] as specified in the
 >      original design rather than use something like [inotify(7)]?
+>
 >   We would still consider using [busy waiting] since, for one thing, the code we have created is already created for [busy waiting]. The code would have to be refactored for [inotify(7)]. As well, inotify still does not completely remove the issues of synchronization in the program. 
 [Linux]:        https://kernel.org
 [busy waiting]: https://en.wikipedia.org/wiki/Busy_waiting
