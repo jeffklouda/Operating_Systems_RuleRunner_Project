@@ -19,7 +19,10 @@ int run_commands(vector<string> rule, string fileName, time_t timeStamp){
 	}
 	cout << "Executing action \"" << command_string << "\" on \"" << string_baseName << "\"" << endl;
 	vector<char *> command;
-	int output_fd = STDOUT_FILENO;
+	command.clear();
+	int output_fd = STDOUT_FILENO;	
+	string extended_filename;
+	string string_timeStamp;
 	for (uint i=2; i < rule.size(); i++){
 		if (rule[i] == "${BASEPATH}" || rule[i] == "${{BASEPATH}}"){
 			//size_t lastdot = string_baseName.find_last_of(".");
@@ -27,10 +30,10 @@ int run_commands(vector<string> rule, string fileName, time_t timeStamp){
 			command.push_back(char_baseName);
 			//}
 		}else if (rule[i] == "${FULLPATH}" || rule[i] == "${{FULLPATH}}"){
-			string extended_filename = ROOT + '/' + char_baseName;
+			extended_filename = ROOT + '/' + char_baseName;
 			command.push_back(const_cast<char*>(extended_filename.c_str()));
 		}else if (rule[i] == "${TIMESTAMP}" || rule[i] == "${{TIMESTAMP}}"){
-			string string_timeStamp = to_string(timeStamp);
+			string_timeStamp = to_string(timeStamp);
 			command.push_back(const_cast<char*>(string_timeStamp.c_str()));
 		}else if (rule[i] == "${EVENT}" || rule[i] == "${{EVENT}}"){
 			command.push_back(const_cast<char*>(rule[0].c_str()));
@@ -63,8 +66,11 @@ int run_commands(vector<string> rule, string fileName, time_t timeStamp){
 			dup2(output_fd, STDOUT_FILENO);
 			execvp(command_char[0], command_char);
 			_exit(EXIT_FAILURE);
-		default:
+		default:		//Parent
 			wait(NULL);
+			if (output_fd != STDOUT_FILENO){
+				close(output_fd);
+			}
 			break;
 	}
 

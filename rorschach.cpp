@@ -67,7 +67,9 @@ int main(int argc, char *argv[]){
         	usage();
         	return 1;
     	}
-	string full_root_path = realpath(ROOT.c_str(), NULL);
+	char buffer_path[BUFSIZ];
+	string full_root_path = realpath(ROOT.c_str(), buffer_path);
+	//free(buffer_path);
 	ROOT_STRING_LENGTH = full_root_path.length();
 	vector<vector<string>> rules_list;
 	rule_loader(rules_list);
