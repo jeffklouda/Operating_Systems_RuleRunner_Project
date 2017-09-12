@@ -19,47 +19,51 @@ Design
 > if a file has been created, modified, or removed.
 >
 >   1. What system calls would you need to use?
-
+>
 >	To do this action, you'd need to use the following system calls: opendir(), readdir(), closedir(), and stat().
 >   
 >   2. What information would you need to store and what data structures would
 >      you need?
-
+>
 >	You would need to store what files are in the directory on the previous
-scan and the date tag of the files on the previous scan. To keep track of 
-this, you can use a map that maps from the inode to a struct containing the filename and the time of the last modification to compare the values of the 
-current scan to the values of the previous scan. 
-
+> scan and the date tag of the files on the previous scan. To keep track of 
+> this, you can use a map that maps from the inode to a struct containing 
+> the filename and the time of the last modification to compare the values 
+> of the current scan to the values of the previous scan. 
+>
 > Explain how you would check if a rule matched an event and execute the
 > corresponding action.
 >
 >   1. What system calls would you need to use?
 >	
 >   You need to use the following system calls: fork() and execvp().
-   
+>   
 >   2. How would you pass the environment variables to the command?
-    
-    We would pass the environment variables to the command using the 
-    C++ function getenv() to obtain the variables and then execvp() to 
-    pass them.
-
+>   
+>   We would pass the environment variables to the command using the 
+>   C++ function getenv() to obtain the variables and then execvp() to 
+>   pass them.
+>
 > Explain how you would handle a [SIGINT] signal and what you would need to
 > cleanup?
+>    
 >
 >   1. What system calls would you need to use?
-
-    signal(SIGINT)
+>   We will use signal(SIGINT, handler()) where handler() is our handler
+>   function which will allow our program to clean up before ending.
 >
 >   2. How would you know what resources to cleanup?
-
-    We will have to make sure all files opened by the program are closed
-    which we can do by setting a flag that allows the program to finish the loop. This allows all files to complete their actions and that includes closing. 
+>
+>   We will have to make sure all files opened by the program are closed
+>   which we can do by setting a flag that allows the program to finish the loop. This allows all files to complete their actions and that includes closing. 
 
 Testing
 -------
 
 > Describe how you tested and verified that `rorschach` met the project
 > requirements.
+
+>   Our main tool in testing and verifying the output of rorschach was the demo.py file that Professor Bui and the TA's provided for us. This python file tested most of the possible situations where `rorschach` would have to function. Along with this, we tested a couple of extra situations that `rorschach` might have to deal with.
 
 Analysis
 --------
@@ -77,10 +81,10 @@ Analysis
 >	This could be a negative design flaw since files could be added and deleted between scan times, thereby making it seem like those actions didn't occur at all. Also, if something is created, modified, or deleted while scanning, it my confuddle the program. 
 >   2. Consider [inotify(7)] provided by [Linux].  How would these system calls
 >      help address the problem of [busy waiting]?
->	Inotify() would solve the problem of busy waiting.
+>	Inotify() would solve the problem of busy waiting. It would solve this problem because inotify instances will watch files and directories and know the instant that the files have been changed. This is a problem in busy waiting, since the scanning only occurred at set intervals.
 >   3. Why might we still consider using [busy waiting] as specified in the
 >      original design rather than use something like [inotify(7)]?
-
+>   We would still consider using [busy waiting] since, for one thing, the code we have created is already created for [busy waiting]. The code would have to be refactored for [inotify(7)]. As well, inotify still does not completely remove the issues of synchronization in the program. 
 [Linux]:        https://kernel.org
 [busy waiting]: https://en.wikipedia.org/wiki/Busy_waiting
 [system call]:  https://en.wikipedia.org/wiki/System_call
@@ -90,8 +94,9 @@ Errata
 ------
 
 > Describe any known errors, bugs, or deviations from the requirements.
-
+> We have not deviated from the accorded course as provided to us by Professor Bui. Also, there are no issues that we know of. 
 Extra Credit
 ------------
 
 > Describe what extra credit (if any) that you implemented.
+> N/A
